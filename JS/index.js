@@ -1,82 +1,50 @@
-// Definicion de las variables 
-/*
-const menu = {
-    entrada: {
-        A1: { nombre: 'Pan con queso', precio: 1500 },
-        A2: { nombre: 'Picada para 4 personas', precio: 5500 },
-        A3: { nombre: 'Picada para 2 personas', precio: 3500 },
-        A4: { nombre: 'Empanadas (6)', precio: 4000 }
-    },
-    platoPrincipal: {
-        B1: { nombre: 'Pizza', precio: 7000 },
-        B2: { nombre: 'Hamburguesa', precio: 5000 },
-        B3: { nombre: 'Tacos', precio: 4000 },
-        B4: { nombre: 'Asado', precio: 10500 }
-    },
-    postre: {
-        C1: { nombre: 'Gelatina', precio: 2000 },
-        C2: { nombre: 'Helado', precio: 3000 },
-        C3: { nombre: 'Flan', precio: 2500 },
-        C4: { nombre: 'Torta', precio: 3500 }
-    },
-    bebidas: {
-        D1: { nombre: 'Agua', precio: 1000 },
-        D2: { nombre: 'Jugo', precio: 1500 },
-        D3: { nombre: 'Coca-Cola', precio: 2000 },
-        D4: { nombre: 'Cerveza', precio: 3000 }
-    }
-};*/
-
-
-const menu = {
-    A1: { nombre: 'Pan con queso', precio: 1500 },
-    A2: { nombre: 'Picada para 4 personas', precio: 5500 },
-    A3: { nombre: 'Picada para 2 personas', precio: 3500 },
-    A4: { nombre: 'Empanadas (6)', precio: 4000 },
-    B1: { nombre: 'Pizza', precio: 7000 },
-    B2: { nombre: 'Hamburguesa', precio: 5000 },
-    B3: { nombre: 'Tacos', precio: 4000 },
-    B4: { nombre: 'Asado', precio: 10500 },
-    C1: { nombre: 'Gelatina', precio: 2000 },
-    C2: { nombre: 'Helado', precio: 3000 },
-    C3: { nombre: 'Flan', precio: 2500 },
-    C4: { nombre: 'Torta', precio: 3500 },
-    D1: { nombre: 'Agua', precio: 1000 },
-    D2: { nombre: 'Jugo', precio: 1500 },
-    D3: { nombre: 'Coca-Cola', precio: 2000 },
-    D4: { nombre: 'Cerveza', precio: 3000 }
-};
-
+// Definicion del menu como un array de objetos
+const menu = [
+    { codigo: 'A1', nombre: 'Pan con queso', precio: 1500, categoria: 'entrada' },
+    { codigo: 'A2', nombre: 'Picada para 4 personas', precio: 5500, categoria: 'entrada' },
+    { codigo: 'A3', nombre: 'Picada para 2 personas', precio: 3500, categoria: 'entrada' },
+    { codigo: 'A4', nombre: 'Empanadas (6)', precio: 4000, categoria: 'entrada' },
+    { codigo: 'B1', nombre: 'Pizza', precio: 7000, categoria: 'platoPrincipal' },
+    { codigo: 'B2', nombre: 'Hamburguesa', precio: 5000, categoria: 'platoPrincipal' },
+    { codigo: 'B3', nombre: 'Tacos', precio: 4000, categoria: 'platoPrincipal' },
+    { codigo: 'B4', nombre: 'Asado', precio: 10500, categoria: 'platoPrincipal' },
+    { codigo: 'C1', nombre: 'Gelatina', precio: 2000, categoria: 'postre' },
+    { codigo: 'C2', nombre: 'Helado', precio: 3000, categoria: 'postre' },
+    { codigo: 'C3', nombre: 'Flan', precio: 2500, categoria: 'postre' },
+    { codigo: 'C4', nombre: 'Torta', precio: 3500, categoria: 'postre' },
+    { codigo: 'D1', nombre: 'Agua', precio: 1000, categoria: 'bebida' },
+    { codigo: 'D2', nombre: 'Jugo', precio: 1500, categoria: 'bebida' },
+    { codigo: 'D3', nombre: 'Coca-Cola', precio: 2000, categoria: 'bebida' },
+    { codigo: 'D4', nombre: 'Cerveza', precio: 3000, categoria: 'bebida' }
+];
 
 // MOSTRAR EL MENU
-
 function mostrarMenu() {
-    let menuStr = 'Menú del Restaurante\n\n';
-    for (let codigo in menu) {
-        const item = menu[codigo];
-        menuStr += `${codigo} - ${item.nombre}: $${item.precio}\n`;
-    }
-    console.log(menuStr);
+    let menuStr = '';
+    menu.forEach(item => {
+        menuStr += `${item.codigo} - ${item.nombre}: $${item.precio}<br>`;
+    });
+    document.getElementById('menu-list').innerHTML = menuStr;
 }
 
-
 // VERIFICAR SI EL CODIGO INGRESADO POR EL USUARIO ES VALIDO
-
 function esCodigoValido(codigo) {
-    return menu.hasOwnProperty(codigo);
+    return menu.some(item => item.codigo === codigo);
 }
 
 function calcularTotal(pedidos) {
     let total = 0;
-    for (let codigo in pedidos) {
-        const cantidad = pedidos[codigo];
-        total += menu[codigo].precio * cantidad;
-    }
+    pedidos.forEach(pedido => {
+        const item = menu.find(item => item.codigo === pedido.codigo);
+        if (item) {
+            total += item.precio * pedido.cantidad;
+        }
+    });
     return total;
 }
 
 function iniciarPedido() {
-    const pedidos = {};
+    const pedidos = [];
     let continuar = true;
 
     while (continuar) {
@@ -96,10 +64,11 @@ function iniciarPedido() {
             }
         } while (isNaN(cantidad) || cantidad <= 0);
 
-        if (pedidos[codigo]) {
-            pedidos[codigo] += cantidad;
+        const pedidoExistente = pedidos.find(pedido => pedido.codigo === codigo);
+        if (pedidoExistente) {
+            pedidoExistente.cantidad += cantidad;
         } else {
-            pedidos[codigo] = cantidad;
+            pedidos.push({ codigo, cantidad });
         }
 
         let respuesta;
@@ -114,9 +83,10 @@ function iniciarPedido() {
     }
 
     const total = calcularTotal(pedidos);
-    console.log(`El total de su pedido es: $${total}`);
+    document.getElementById('resultado').innerHTML = `El total de su pedido es: $${total}`;
 }
 
 // Mostrar el menú al iniciar
-mostrarMenu();
-iniciarPedido();
+document.addEventListener('DOMContentLoaded', (event) => {
+    mostrarMenu();
+});

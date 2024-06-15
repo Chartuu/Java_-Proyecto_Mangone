@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú de un restaurante</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <h1>Menu de un restaurante</h1>
-    <h2>Mangone Martina</h2>
+    <div class="menu-box">
+        <h1>Menú de un restaurante</h1>
+        <h2>Mangone Martina</h2>
+        <div id="menu-list"></div>
+    </div>
+    <div class="calculator-box">
+        <button onclick="iniciarPedido()">Iniciar Pedido</button>
+        <div id="resultado"></div>
+    </div>
 
-    <script src="./JS/index.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 </html>
