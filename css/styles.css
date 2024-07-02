@@ -8,26 +8,36 @@ body {
     margin: 0;
 }
 
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
 .menu-box, .calculator-box {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     border-radius: 15px;
     padding: 20px;
     margin: 10px;
+    flex: 1;
+    min-width: 300px;
 }
 
 .menu-box {
     background-color: rgba(0, 0, 0, 0.7);
-    width: 300px;
 }
 
 .calculator-box {
     background-color: rgba(0, 139, 139, 0.7);
-    width: 300px;
     text-align: center;
 }
 
-h1, h2 {
+h1, h2, h3 {
     text-align: center;
 }
 
@@ -51,4 +61,50 @@ button:hover {
 #resultado {
     margin-top: 20px;
     font-size: 18px;
+}
+
+#order-form {
+    margin-top: 20px;
+    text-align: left;
+}
+
+#order-form label {
+    display: block;
+    margin-top: 10px;
+}
+
+#order-form input {
+    width: calc(100% - 22px);
+    padding: 5px;
+    margin-top: 5px;
+}
+
+#order-list {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-item span {
+    flex: 1;
+}
+
+.order-item button {
+    background-color: #ff6347;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.order-item button:hover {
+    background-color: #d9534f;
 }

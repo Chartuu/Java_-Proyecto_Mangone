@@ -7,14 +7,19 @@
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <div class="menu-box">
-        <h1>Menú de un restaurante</h1>
-        <h2>Mangone Martina</h2>
-        <div id="menu-list"></div>
-    </div>
-    <div class="calculator-box">
-        <button onclick="iniciarPedido()">Iniciar Pedido</button>
-        <div id="resultado"></div>
+    <div class="container">
+        <div class="menu-box">
+            <h1>Menú de un restaurante</h1>
+            <h2>Mangone Martina</h2>
+            <div id="menu-list"></div>
+        </div>
+        <div class="calculator-box">
+            <h3>Realizar Pedido</h3>
+            <div id="order-form"></div>
+            <button onclick="iniciarPedido()">Agregar</button>
+            <div id="order-list"></div>
+            <div id="resultado"></div>
+        </div>
     </div>
 
     <script src="./js/index.js"></script>
