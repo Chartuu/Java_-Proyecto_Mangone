@@ -28,10 +28,6 @@ body {
     min-width: 300px;
 }
 
-.menu-box {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
 .calculator-box {
     background-color: rgba(0, 139, 139, 0.7);
     text-align: center;
